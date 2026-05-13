@@ -1,7 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { recordVisit } from './actions'
 
 const MESSAGES = [
   "Catch yourself before you wreck yourself.",
@@ -13,9 +15,17 @@ const MESSAGES = [
 ]
 
 export default function HoneypotUI({ todayCount }: { todayCount: number }) {
+  const pathname = usePathname()
+  const fromRef = useRef<string | null>(null)
   const [messageIndex, setMessageIndex] = useState(0)
   const [messageVisible, setMessageVisible] = useState(true)
   const [showCount, setShowCount] = useState(false)
+
+  useEffect(() => {
+    if (fromRef.current !== null) return
+    fromRef.current = document.referrer
+    recordVisit(fromRef.current)
+  }, [pathname])
 
   useEffect(() => {
     setMessageIndex(Math.floor(Math.random() * MESSAGES.length))
