@@ -12,7 +12,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent";
+import {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
 
 type DailyPoint = { date: string; count: number };
 type SiteCount = { site: string; count: number };
@@ -27,13 +30,7 @@ interface Props {
 }
 
 const DONUT_COLORS = ["#2D728F", "#3A8FAD", "#4AACCC", "#F49E4C", "#F5B87A"];
-
-const card: React.CSSProperties = {
-  border: "1.5px solid #e0e0e0",
-  borderRadius: "14px",
-  backgroundColor: "#fff",
-  padding: "20px",
-};
+const CARD = "border-[1.5px] border-[#e0e0e0] rounded-[14px] bg-white p-5";
 
 export default function DashboardUI({
   todayCount,
@@ -46,121 +43,47 @@ export default function DashboardUI({
   const maxSiteCount = topSites[0]?.count || 1;
 
   return (
-    <div
-      style={{
-        backgroundColor: "#f4f4f4",
-        minHeight: "100vh",
-        padding: "28px 32px",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "1.15rem",
-          fontWeight: 600,
-          marginBottom: "22px",
-          textDecoration: "underline",
-          color: "#111",
-        }}
-      >
+    <div className="p-4 sm:px-8 sm:py-7 bg-[#f4f4f4] min-h-screen">
+      <h1 className="text-[1.15rem] font-semibold mb-[22px] underline text-[#111]">
         Dashboard
       </h1>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "260px 1fr",
-          gridTemplateRows: "auto auto",
-          gap: "16px",
-          alignItems: "start",
-        }}
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-[260px_1fr] gap-4 items-start">
         {/* ── Left column ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div className="flex flex-col gap-4">
+
           {/* Visits Today */}
-          <div style={{ ...card, textAlign: "center", padding: "28px 20px" }}>
-            <div
-              style={{
-                fontSize: "5.5rem",
-                fontWeight: 700,
-                lineHeight: 1,
-                color: "#111",
-              }}
-            >
+          <div className={`${CARD} text-center px-5 py-7`}>
+            <div className="text-7xl sm:text-[5.5rem] font-bold leading-none text-[#111]">
               {todayCount}
             </div>
-            <div style={{ fontSize: "1rem", color: "#555", marginTop: "10px" }}>
-              Visits Today
-            </div>
+            <div className="text-base text-[#555] mt-2.5">Visits Today</div>
           </div>
 
           {/* Top Sites — table */}
-          <div style={card}>
-            <div
-              style={{
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                marginBottom: "14px",
-                color: "#333",
-              }}
-            >
+          <div className={CARD}>
+            <div className="text-[0.85rem] font-semibold mb-3.5 text-[#333]">
               Today&apos;s Top Sites
             </div>
             {topSites.length === 0 ? (
-              <div style={{ fontSize: "0.8rem", color: "#aaa" }}>
-                No visits yet today
-              </div>
+              <div className="text-xs text-[#aaa]">No visits yet today</div>
             ) : (
               topSites.map((s, i) => (
                 <div
                   key={s.site}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    marginBottom: "8px",
-                    fontSize: "0.78rem",
-                  }}
+                  className="flex items-center gap-2 mb-2 text-[0.78rem]"
                 >
-                  <span style={{ minWidth: "18px", color: "#777" }}>
-                    {i + 1}.
-                  </span>
-                  <span
-                    style={{
-                      minWidth: "70px",
-                      maxWidth: "70px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                      color: "#222",
-                    }}
-                  >
+                  <span className="min-w-[18px] text-[#777]">{i + 1}.</span>
+                  <span className="min-w-[70px] max-w-[70px] truncate text-[#222]">
                     {s.site}
                   </span>
-                  <div
-                    style={{
-                      flex: 1,
-                      height: "10px",
-                      backgroundColor: "#eee",
-                      borderRadius: "3px",
-                      overflow: "hidden",
-                    }}
-                  >
+                  <div className="flex-1 h-[10px] bg-[#eee] rounded-[3px] overflow-hidden">
                     <div
-                      style={{
-                        width: `${(s.count / maxSiteCount) * 100}%`,
-                        height: "100%",
-                        backgroundColor: "#2D728F",
-                        borderRadius: "3px",
-                      }}
+                      className="h-full bg-[#2D728F] rounded-[3px]"
+                      style={{ width: `${(s.count / maxSiteCount) * 100}%` }}
                     />
                   </div>
-                  <span
-                    style={{
-                      minWidth: "22px",
-                      textAlign: "right",
-                      color: "#555",
-                    }}
-                  >
+                  <span className="min-w-[22px] text-right text-[#555]">
                     {s.count}
                   </span>
                 </div>
@@ -169,21 +92,12 @@ export default function DashboardUI({
           </div>
 
           {/* Top Sites — donut */}
-          <div style={card}>
-            <div
-              style={{
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                marginBottom: "4px",
-                color: "#333",
-              }}
-            >
+          <div className={CARD}>
+            <div className="text-[0.85rem] font-semibold mb-1 text-[#333]">
               Today&apos;s Top Sites
             </div>
             {topSites.length === 0 ? (
-              <div
-                style={{ fontSize: "0.8rem", color: "#aaa", marginTop: "8px" }}
-              >
+              <div className="text-[0.8rem] text-[#aaa] mt-2">
                 No visits yet today
               </div>
             ) : (
@@ -207,10 +121,10 @@ export default function DashboardUI({
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value: ValueType | undefined, name: NameType | undefined) => [
-                      `${value ?? "undefined"} visits`,
-                      name,
-                    ]}
+                    formatter={(
+                      value: ValueType | undefined,
+                      name: NameType | undefined
+                    ) => [`${value ?? "?"} visits`, name]}
                     contentStyle={{ fontSize: "0.78rem" }}
                   />
                 </PieChart>
@@ -220,9 +134,10 @@ export default function DashboardUI({
         </div>
 
         {/* ── Right column ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div className="flex flex-col gap-4">
+
           {/* Line chart */}
-          <div style={{ ...card, paddingBottom: "12px" }}>
+          <div className={`${CARD} pb-3`}>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart
                 data={dailyData}
@@ -252,37 +167,16 @@ export default function DashboardUI({
           </div>
 
           {/* 7-day stats */}
-          <div style={{ ...card, padding: "28px 32px" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                textAlign: "center",
-              }}
-            >
+          <div className={`${CARD} px-6 py-5`}>
+            <div className="flex justify-around text-center">
               {[
                 { label: "7-Day Avg", value: sevenDayAvg },
                 { label: "7-Day High", value: sevenDayHigh },
                 { label: "7-Day Low", value: sevenDayLow },
               ].map(({ label, value }) => (
                 <div key={label}>
-                  <div
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#555",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {label}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "3.25rem",
-                      fontWeight: 700,
-                      color: "#111",
-                      lineHeight: 1,
-                    }}
-                  >
+                  <div className="text-[0.9rem] text-[#555] mb-2.5">{label}</div>
+                  <div className="text-5xl sm:text-[3.25rem] font-bold text-[#111] leading-none">
                     {value}
                   </div>
                 </div>
