@@ -2,6 +2,10 @@ import { createClient } from '@/lib/supabase'
 import { USER1_ID } from '@/lib/constants'
 import HoneypotUI from './HoneypotUI'
 
+// Force page rerendering to ensure we fetch today's date each time
+// TODO: Find a better practice for keeping 'today' up to date.
+export const dynamic = 'force-dynamic'
+
 export default async function HoneypotPage() {
   const supabase = createClient()
 

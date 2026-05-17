@@ -8,8 +8,7 @@ import { recordVisit } from './actions'
 const MESSAGES = [
   "Catch yourself before you wreck yourself.",
   "You're getting the hang of this.",
-  "Slowly changing habits, one honeypot visit at a time.",
-  "A honeypot visit is one less visit to the site you want to avoid.",
+  "One less visit to the site you want to avoid.",
   "Take a deep breath. This is how habits change.",
   "Keep going, my friend.",
 ]
