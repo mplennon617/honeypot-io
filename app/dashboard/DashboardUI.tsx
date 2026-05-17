@@ -207,7 +207,7 @@ export default function DashboardUI({
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value: ValueType, name: string) => [
+                    formatter={(value: ValueType | undefined, name: string | undefined) => [
                       `${value ?? "undefined"} visits`,
                       name,
                     ]}
