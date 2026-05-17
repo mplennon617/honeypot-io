@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ValueType } from "recharts/types/component/DefaultTooltipContent";
+import { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent";
 
 type DailyPoint = { date: string; count: number };
 type SiteCount = { site: string; count: number };
@@ -207,7 +207,7 @@ export default function DashboardUI({
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value: ValueType | undefined, name: string | undefined) => [
+                    formatter={(value: ValueType | undefined, name: NameType | undefined) => [
                       `${value ?? "undefined"} visits`,
                       name,
                     ]}
